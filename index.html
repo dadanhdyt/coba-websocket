@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="./node_modules/socket.io/client-dist/socket.io.js"></script> -->
+</head>
+<div id="chatbox">
+
+    <div id="box">
+
+    </div>
+    <form action="" class="form">
+        <input name="msg" type="text" id="message"> <button>SUBMIT</button>
+    </form>
+</div>
+
+<body>
+    <script>
+        const exampleSocket = new WebSocket(
+            "ws://localhost:4000",
+            "protocolOne",
+        );
+        exampleSocket.onmessage = (event) => {
+            const response = JSON.parse(event.data);
+            document.getElementById('box').innerHTML += response.response;
+        };
+        exampleSocket.onopen = function (e) {
+            document.querySelector('.form').addEventListener('submit',function(e){
+                e.preventDefault()
+                exampleSocket.send(JSON.stringify({
+                    u_iddd: 10,
+                    msg__gg: e.target.msg.value ?? null,
+                }))
+            })
+               
+            }
+       
+
+
+    </script>
+</body>
+
+</html>
